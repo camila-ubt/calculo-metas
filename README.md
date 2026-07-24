@@ -47,3 +47,8 @@ feita pelas políticas RLS do banco; a senha nunca fica no código.
 O endereço será:
 
 `https://camila-ubt.github.io/calculo-metas/`
+
+
+## Publicação
+
+O site é publicado automaticamente pelo GitHub Pages a partir da branch `main`.
