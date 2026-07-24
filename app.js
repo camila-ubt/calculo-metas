@@ -94,11 +94,13 @@ function renderMonthOptions(goals, usingDefault) {
     option.selected = goalsRow.mes === currentGoals.mes;
     select.append(option);
   });
+  syncDayInputLimits();
 }
 
 function selectGoalsForMonth(month) {
   const selected = availableGoals.find((goals) => goals.mes === month);
   if (selected) currentGoals = selected;
+  syncDayInputLimits();
   document.querySelector("#results").hidden = true;
 }
 
@@ -125,12 +127,28 @@ function getScheduledDays() {
   );
 }
 
+function getDuoDays() {
+  return Object.fromEntries(
+    SHIFT_KEYS.map((key) => [
+      key,
+      wholeNumberFromInput(document.querySelector(`[data-duo="${key}"]`).value),
+    ]),
+  );
+}
+
 function updateTotalDays() {
-  const total = Object.values(getScheduledDays()).reduce(
+  const scheduledDays = getScheduledDays();
+  const duoDays = getDuoDays();
+  const total = Object.values(scheduledDays).reduce(
+    (sum, days) => sum + days,
+    0,
+  );
+  const totalDuo = Object.values(duoDays).reduce(
     (sum, days) => sum + days,
     0,
   );
   document.querySelector("#totalScheduledDays").textContent = total;
+  document.querySelector("#totalDuoDays").textContent = totalDuo;
   return total;
 }
 
@@ -139,10 +157,25 @@ function daysInGoalMonth() {
   return new Date(year, month, 0).getDate();
 }
 
-function calculateTargets(days) {
+function syncDayInputLimits() {
+  const monthDays = daysInGoalMonth();
+  document
+    .querySelectorAll("[data-shift], [data-duo], #remainingDays")
+    .forEach((input) => {
+      input.max = monthDays;
+    });
+}
+
+function calculateTargets(days, duoDays) {
   const monthDays = daysInGoalMonth();
   const goal = SHIFT_KEYS.reduce(
-    (total, key) => total + (Number(currentGoals[key]) / monthDays) * days[key],
+    (total, key) => {
+      const equivalentFullDays = days[key] - duoDays[key] / 2;
+      return (
+        total +
+        (Number(currentGoals[key]) / monthDays) * equivalentFullDays
+      );
+    },
     0,
   );
 
@@ -153,21 +186,28 @@ function calculateTargets(days) {
   };
 }
 
-function validateForm(totalDays, soldTotal, remainingDays) {
+function validateForm(days, duoDays, totalDays, soldTotal, remainingDays) {
+  const monthDays = daysInGoalMonth();
+
   if (totalDays <= 0) {
     return "Preencha pelo menos um dia da sua escala.";
   }
 
-  if (totalDays > 31) {
-    return "O total da escala não pode passar de 31 dias.";
+  if (totalDays > monthDays) {
+    return `O total da escala não pode passar de ${monthDays} dias neste mês.`;
   }
 
-  if (soldTotal < 0 || remainingDays < 0 || remainingDays > 31) {
+  if (soldTotal < 0 || remainingDays < 0 || remainingDays > monthDays) {
     return "Confira os valores preenchidos.";
   }
 
   if (remainingDays > totalDays) {
     return "Os dias restantes não podem ser maiores que o total da escala.";
+  }
+
+  const invalidDuoShift = SHIFT_KEYS.find((key) => duoDays[key] > days[key]);
+  if (invalidDuoShift) {
+    return "Os dias em dupla não podem ser maiores que os dias trabalhados no mesmo período.";
   }
 
   return "";
@@ -237,18 +277,25 @@ function statusText(targets, sold, remainingDays, totalDays) {
 
 function calculate() {
   const days = getScheduledDays();
+  const duoDays = getDuoDays();
   const totalDays = updateTotalDays();
   const soldTotal = numberFromInput(document.querySelector("#soldTotal").value);
   const remainingDays = wholeNumberFromInput(
     document.querySelector("#remainingDays").value,
   );
-  const message = validateForm(totalDays, soldTotal, remainingDays);
+  const message = validateForm(
+    days,
+    duoDays,
+    totalDays,
+    soldTotal,
+    remainingDays,
+  );
   const messageElement = document.querySelector("#formMessage");
 
   messageElement.textContent = message;
   if (message) return;
 
-  const targets = calculateTargets(days);
+  const targets = calculateTargets(days, duoDays);
   updateResultCard("goal", targets.goal, soldTotal, remainingDays);
   updateResultCard("super", targets.super, soldTotal, remainingDays);
   updateResultCard("mega", targets.mega, soldTotal, remainingDays);
@@ -283,6 +330,9 @@ function closeResults() {
 SHIFT_KEYS.forEach((key) => {
   document
     .querySelector(`[data-shift="${key}"]`)
+    .addEventListener("input", updateTotalDays);
+  document
+    .querySelector(`[data-duo="${key}"]`)
     .addEventListener("input", updateTotalDays);
 });
 
