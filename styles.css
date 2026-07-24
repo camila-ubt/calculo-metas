@@ -33,6 +33,10 @@ body {
   font-family: "DM Sans", sans-serif;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 button,
 input {
   font: inherit;
@@ -44,15 +48,20 @@ a {
 }
 
 .page-shell {
-  width: min(100% - 28px, 960px);
+  width: min(100% - 32px, 1280px);
   margin: 0 auto;
-  padding: 48px 0 28px;
+  padding: 20px 0 12px;
 }
 
 .hero {
-  max-width: 680px;
-  margin: 0 auto 28px;
-  text-align: center;
+  display: grid;
+  grid-template-columns: auto minmax(260px, 1fr) auto;
+  align-items: center;
+  gap: clamp(22px, 4vw, 60px);
+  max-width: none;
+  margin: 0 0 16px;
+  padding: 8px 4px;
+  text-align: left;
 }
 
 .eyebrow {
@@ -77,17 +86,19 @@ h1,
 }
 
 h1 {
-  margin-bottom: 10px;
+  margin-bottom: 0;
   color: var(--wine-dark);
-  font-size: clamp(2.25rem, 8vw, 4.4rem);
-  line-height: 0.98;
+  font-size: clamp(2rem, 3.4vw, 3.4rem);
+  line-height: 1;
+  white-space: nowrap;
 }
 
-.hero > p:not(.eyebrow) {
-  max-width: 590px;
-  margin: 0 auto 16px;
+.hero-copy {
+  max-width: 470px;
+  margin: 0;
   color: var(--muted);
-  line-height: 1.6;
+  font-size: 0.9rem;
+  line-height: 1.45;
 }
 
 .month-selector {
@@ -117,7 +128,7 @@ h1 {
 .card,
 .results,
 .admin-card {
-  margin-top: 18px;
+  margin-top: 0;
   padding: clamp(20px, 4vw, 34px);
   border: 1px solid rgba(123, 41, 72, 0.1);
   border-radius: var(--radius);
@@ -125,11 +136,21 @@ h1 {
   box-shadow: var(--shadow);
 }
 
+.form-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.75fr) minmax(280px, 0.85fr);
+  gap: 14px;
+}
+
+.form-layout .card {
+  padding: 20px;
+}
+
 .section-heading {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  margin-bottom: 22px;
+  margin-bottom: 15px;
 }
 
 .section-heading h2 {
@@ -159,11 +180,11 @@ h1 {
 .schedule-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 10px;
 }
 
 .store-group {
-  padding: 16px;
+  padding: 13px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--cream);
@@ -174,8 +195,8 @@ h1 {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 14px;
-  font-size: 0.94rem;
+  margin-bottom: 9px;
+  font-size: 0.86rem;
 }
 
 .store-group h3 span {
@@ -188,10 +209,10 @@ h1 {
 
 .shift-row {
   display: grid;
-  grid-template-columns: 1fr 70px;
+  grid-template-columns: 1fr 62px;
   align-items: center;
   gap: 10px;
-  margin-top: 9px;
+  margin-top: 6px;
 }
 
 .shift-row label,
@@ -204,7 +225,7 @@ h1 {
 
 input {
   width: 100%;
-  min-height: 45px;
+  min-height: 40px;
   border: 1px solid #dacbd0;
   border-radius: 11px;
   outline: none;
@@ -228,8 +249,8 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 16px;
-  padding: 14px 16px;
+  margin-top: 10px;
+  padding: 9px 13px;
   border-radius: 13px;
   color: var(--wine-dark);
   background: var(--rose-light);
@@ -238,13 +259,13 @@ input:focus {
 }
 
 .total-days strong {
-  font-size: 1.35rem;
+  font-size: 1.15rem;
 }
 
 .summary-inputs {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  grid-template-columns: 1fr;
+  gap: 11px;
 }
 
 .summary-inputs label,
@@ -255,7 +276,7 @@ input:focus {
 
 .summary-inputs input,
 .admin-field input {
-  padding: 11px 13px;
+  padding: 9px 12px;
   font-weight: 600;
 }
 
@@ -293,14 +314,15 @@ input:focus {
 }
 
 .actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   gap: 10px;
   margin-top: 8px;
 }
 
 .button {
-  min-height: 48px;
-  padding: 12px 20px;
+  min-height: 43px;
+  padding: 10px 16px;
   border: 0;
   border-radius: 12px;
   cursor: pointer;
@@ -334,20 +356,45 @@ input:focus {
 }
 
 .results {
-  background:
-    linear-gradient(180deg, rgba(123, 41, 72, 0.025), transparent),
-    white;
+  position: fixed;
+  z-index: 50;
+  inset: 50% auto auto 50%;
+  width: min(calc(100% - 28px), 980px);
+  max-height: calc(100vh - 32px);
+  margin: 0;
+  padding: 26px;
+  overflow: auto;
+  transform: translate(-50%, -50%);
+  background: white;
+  box-shadow:
+    0 0 0 100vmax rgba(46, 32, 37, 0.48),
+    0 24px 70px rgba(46, 32, 37, 0.24);
+}
+
+.result-close {
+  position: absolute;
+  top: 10px;
+  right: 13px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  color: var(--wine);
+  background: var(--rose-light);
+  cursor: pointer;
+  font-size: 1.6rem;
+  line-height: 1;
 }
 
 .results-heading {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   text-align: center;
 }
 
 .results-heading h2 {
   margin-bottom: 0;
   color: var(--wine-dark);
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-size: clamp(1.65rem, 4vw, 2.2rem);
 }
 
 .result-grid {
@@ -360,7 +407,7 @@ input:focus {
   --accent: var(--wine);
   position: relative;
   overflow: hidden;
-  padding: 18px;
+  padding: 15px;
   border: 1px solid var(--line);
   border-radius: 17px;
   background: white;
@@ -395,7 +442,7 @@ input:focus {
 }
 
 .target {
-  margin: 16px 0 6px;
+  margin: 11px 0 5px;
   color: var(--muted);
   font-size: 0.78rem;
 }
@@ -413,7 +460,7 @@ input:focus {
   display: block;
   margin-top: 2px;
   color: var(--accent);
-  font-size: 1.35rem;
+  font-size: 1.18rem;
 }
 
 .per-day {
@@ -425,7 +472,7 @@ input:focus {
 
 .progress {
   height: 7px;
-  margin-top: 14px;
+  margin-top: 9px;
   overflow: hidden;
   border-radius: 99px;
   background: #eee7e9;
@@ -441,8 +488,8 @@ input:focus {
 }
 
 .status-message {
-  margin-top: 18px;
-  padding: 16px;
+  margin-top: 13px;
+  padding: 12px;
   border: 1px solid rgba(123, 41, 72, 0.12);
   border-radius: 14px;
   color: var(--wine-dark);
@@ -458,7 +505,7 @@ input:focus {
 }
 
 footer {
-  padding: 24px 8px 0;
+  padding: 11px 8px 0;
   text-align: center;
 }
 
@@ -582,9 +629,31 @@ footer a,
     padding-top: 34px;
   }
 
+  .hero {
+    display: block;
+    text-align: center;
+  }
+
+  .hero-title {
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    white-space: normal;
+  }
+
+  .hero-copy {
+    margin: 0 auto 14px;
+  }
+
+  .form-layout,
   .schedule-grid,
   .result-grid {
     grid-template-columns: 1fr;
+  }
+
+  .form-layout {
+    gap: 14px;
   }
 
   .store-group {
@@ -632,6 +701,10 @@ footer a,
 
   .per-day {
     grid-column: 1 / -1;
+  }
+
+  .results {
+    padding: 22px 18px;
   }
 }
 
