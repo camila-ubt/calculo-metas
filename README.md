@@ -1,54 +1,33 @@
 # Calculadora de Metas
 
-Página para calcular metas pessoais de acordo com os dias trabalhados em cada
-loja e período. As metas ficam salvas por mês e os cálculos reproduzem a
-planilha `Cálculo Meta.xlsx`.
+Página criada para as vendedoras acompanharem suas metas pessoais de forma
+simples, considerando a escala de trabalho e as vendas realizadas no mês.
 
-## Regra do cálculo
+## Funcionalidades
 
-- Meta pessoal: meta mensal da loja e do período, dividida pela quantidade de
-  dias do mês e multiplicada pelos dias da escala.
-- Super: 120% da meta pessoal.
-- Mega: 130% da meta pessoal.
-- Falta por dia: valor que ainda falta dividido pelos dias restantes de
-  trabalho.
-- Os dias trabalhados sozinha e em dupla são preenchidos separadamente
-- Nos dias em dupla, cada vendedora recebe metade da meta diária
-  daquele período.
-- O total da escala respeita automaticamente a quantidade de dias do mês
-  selecionado.
-- A administradora pode cadastrar meses novos e corrigir meses já cadastrados.
-- As vendedoras escolhem o mês antes de calcular.
+- Seleção do mês das metas
+- Escala dividida por loja, período e dias trabalhados sozinha ou em dupla
+- Cálculo automático da Meta, Super e Mega
+- Valor que ainda falta alcançar
+- Média necessária por dia restante
+- Acompanhamento visual do desempenho
+- Limite de dias conforme o mês selecionado
+- Área protegida para atualização das metas mensais
 
-## Configurar o Supabase
+## Regras do cálculo
 
-1. Crie um projeto no Supabase.
-2. Abra o **SQL Editor** e execute o arquivo `supabase.sql`.
-3. Em **Authentication > Users**, crie o usuário administrativo.
-4. Volte ao SQL Editor e execute a última instrução comentada de
-   `supabase.sql`, substituindo `SEU_EMAIL` pelo e-mail criado.
-5. Em **Project Settings > API**, copie:
-   - Project URL;
-   - chave `anon` / `publishable`.
-6. Preencha `config.js`:
+- A meta mensal de cada loja e período é dividida pela quantidade de dias do mês
+- Cada dia trabalhado sozinha recebe a meta diária completa
+- Cada dia trabalhado em dupla recebe metade da meta diária
+- Super corresponde a 120% da meta pessoal
+- Mega corresponde a 130% da meta pessoal
 
-```js
-window.APP_CONFIG = {
-  supabaseUrl: "SUA_PROJECT_URL",
-  supabaseAnonKey: "SUA_CHAVE_ANON",
-};
-```
+## Lojas
 
-A chave pública do Supabase pode ficar no site. A proteção das alterações é
-feita pelas políticas RLS do banco; a senha nunca fica no código.
+- Clube Bijoux — CB
+- Arte Acessórios — AA
+- Adoro Bijoux — AB
 
-## Publicar no GitHub Pages
+## Acesso
 
-1. O repositório precisa estar público no GitHub Free.
-2. Abra **Settings > Pages**.
-3. Em **Build and deployment**, escolha **Deploy from a branch**.
-4. Selecione `main`, pasta `/ (root)`, e salve.
-
-O endereço será:
-
-`https://camila-ubt.github.io/calculo-metas/`
+[Abrir a Calculadora de Metas](https://camila-ubt.github.io/calculo-metas/)
