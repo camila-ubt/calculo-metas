@@ -16,9 +16,9 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="stylesheet" href="styles.css?v=3" />
     <script src="config.js"></script>
-    <script src="app.js?v=2" defer></script>
+    <script src="app.js?v=3" defer></script>
   </head>
   <body>
     <main class="page-shell">
@@ -52,44 +52,65 @@
           <div class="schedule-grid">
             <div class="store-group">
               <h3>Clube Bijoux <span>CB</span></h3>
+              <div class="shift-columns" aria-hidden="true">
+                <span></span><span>Dias</span><span>Dupla</span>
+              </div>
               <div class="shift-row">
                 <label for="cb_manha">Manhã</label>
-                <input id="cb_manha" data-shift="cb_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input id="cb_manha" data-shift="cb_manha" aria-label="CB manhã: dias trabalhados" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input data-duo="cb_manha" aria-label="CB manhã: dias em dupla" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
               </div>
               <div class="shift-row">
                 <label for="cb_noite">Noite</label>
-                <input id="cb_noite" data-shift="cb_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input id="cb_noite" data-shift="cb_noite" aria-label="CB noite: dias trabalhados" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input data-duo="cb_noite" aria-label="CB noite: dias em dupla" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
               </div>
             </div>
 
             <div class="store-group">
               <h3>Arte Acessórios <span>AA</span></h3>
+              <div class="shift-columns" aria-hidden="true">
+                <span></span><span>Dias</span><span>Dupla</span>
+              </div>
               <div class="shift-row">
                 <label for="aa_manha">Manhã</label>
-                <input id="aa_manha" data-shift="aa_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input id="aa_manha" data-shift="aa_manha" aria-label="AA manhã: dias trabalhados" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input data-duo="aa_manha" aria-label="AA manhã: dias em dupla" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
               </div>
               <div class="shift-row">
                 <label for="aa_noite">Noite</label>
-                <input id="aa_noite" data-shift="aa_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input id="aa_noite" data-shift="aa_noite" aria-label="AA noite: dias trabalhados" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input data-duo="aa_noite" aria-label="AA noite: dias em dupla" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
               </div>
             </div>
 
             <div class="store-group">
               <h3>Adoro Bijoux <span>AB</span></h3>
+              <div class="shift-columns" aria-hidden="true">
+                <span></span><span>Dias</span><span>Dupla</span>
+              </div>
               <div class="shift-row">
                 <label for="ab_manha">Manhã</label>
-                <input id="ab_manha" data-shift="ab_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input id="ab_manha" data-shift="ab_manha" aria-label="AB manhã: dias trabalhados" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input data-duo="ab_manha" aria-label="AB manhã: dias em dupla" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
               </div>
               <div class="shift-row">
                 <label for="ab_noite">Noite</label>
-                <input id="ab_noite" data-shift="ab_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input id="ab_noite" data-shift="ab_noite" aria-label="AB noite: dias trabalhados" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+                <input data-duo="ab_noite" aria-label="AB noite: dias em dupla" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
               </div>
             </div>
           </div>
 
           <div class="total-days">
-            <span>Total de dias na escala</span>
-            <strong id="totalScheduledDays">0</strong>
+            <div>
+              <span>Total na escala</span>
+              <strong id="totalScheduledDays">0</strong>
+            </div>
+            <div>
+              <span>Dias em dupla</span>
+              <strong id="totalDuoDays">0</strong>
+            </div>
           </div>
         </section>
 
