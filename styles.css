@@ -209,10 +209,21 @@ h1 {
 
 .shift-row {
   display: grid;
-  grid-template-columns: 1fr 62px;
+  grid-template-columns: 1fr 58px 58px;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   margin-top: 6px;
+}
+
+.shift-columns {
+  display: grid;
+  grid-template-columns: 1fr 58px 58px;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .shift-row label,
@@ -256,6 +267,12 @@ input:focus {
   background: var(--rose-light);
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.total-days > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .total-days strong {
@@ -656,32 +673,24 @@ footer a,
     gap: 14px;
   }
 
-  .store-group {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
-    align-items: center;
-    gap: 10px;
-  }
-
   .store-group h3 {
-    display: block;
-    margin: 0;
+    display: flex;
+    margin-bottom: 8px;
   }
 
   .store-group h3 span {
-    display: table;
-    margin-top: 5px;
+    display: inline-block;
+    margin-top: 0;
   }
 
   .shift-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 4px;
-    margin: 0;
+    grid-template-columns: 1fr 58px 58px;
+    gap: 6px;
+    margin-top: 6px;
   }
 
   .shift-row input {
-    min-height: 42px;
+    min-height: 40px;
   }
 
   .result-card {
