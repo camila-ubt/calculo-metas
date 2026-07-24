@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#7b2948" />
+    <meta
+      name="description"
+      content="Calculadora de metas pessoais por loja e período."
+    />
+    <title>Calculadora de Metas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="config.js"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">ACOMPANHAMENTO PESSOAL</p>
+        <h1>Calculadora de Metas</h1>
+        <p>
+          Informe sua escala e suas vendas para descobrir quanto falta para
+          Meta, Super e Mega.
+        </p>
+        <label class="month-selector">
+          <span>Mês das metas</span>
+          <select id="monthSelect" aria-label="Selecionar mês das metas">
+            <option>Carregando metas…</option>
+          </select>
+        </label>
+      </header>
+
+      <section class="card" aria-labelledby="scheduleTitle">
+        <div class="section-heading">
+          <span class="step">1</span>
+          <div>
+            <h2 id="scheduleTitle">Dias na escala</h2>
+            <p>Coloque quantos dias trabalhará em cada loja e período.</p>
+          </div>
+        </div>
+
+        <div class="schedule-grid">
+          <div class="store-group">
+            <h3>Clube Bijoux <span>CB</span></h3>
+            <div class="shift-row">
+              <label for="cb_manha">Manhã</label>
+              <input id="cb_manha" data-shift="cb_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+            </div>
+            <div class="shift-row">
+              <label for="cb_noite">Noite</label>
+              <input id="cb_noite" data-shift="cb_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+            </div>
+          </div>
+
+          <div class="store-group">
+            <h3>Arte Acessórios <span>AA</span></h3>
+            <div class="shift-row">
+              <label for="aa_manha">Manhã</label>
+              <input id="aa_manha" data-shift="aa_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+            </div>
+            <div class="shift-row">
+              <label for="aa_noite">Noite</label>
+              <input id="aa_noite" data-shift="aa_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+            </div>
+          </div>
+
+          <div class="store-group">
+            <h3>Adoro Bijoux <span>AB</span></h3>
+            <div class="shift-row">
+              <label for="ab_manha">Manhã</label>
+              <input id="ab_manha" data-shift="ab_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+            </div>
+            <div class="shift-row">
+              <label for="ab_noite">Noite</label>
+              <input id="ab_noite" data-shift="ab_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+            </div>
+          </div>
+        </div>
+
+        <div class="total-days">
+          <span>Total de dias na escala</span>
+          <strong id="totalScheduledDays">0</strong>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="salesTitle">
+        <div class="section-heading">
+          <span class="step">2</span>
+          <div>
+            <h2 id="salesTitle">Andamento do mês</h2>
+            <p>Some tudo o que você já vendeu nas três lojas.</p>
+          </div>
+        </div>
+
+        <div class="summary-inputs">
+          <label>
+            <span>Total vendido</span>
+            <div class="money-input">
+              <span>R$</span>
+              <input id="soldTotal" type="text" inputmode="decimal" placeholder="0,00" autocomplete="off" />
+            </div>
+          </label>
+
+          <label>
+            <span>Dias que ainda faltam trabalhar</span>
+            <input id="remainingDays" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+          </label>
+        </div>
+
+        <p class="form-message" id="formMessage" role="alert" aria-live="polite"></p>
+
+        <div class="actions">
+          <button class="button button-primary" id="calculateButton" type="button">
+            Calcular minhas metas
+          </button>
+          <button class="button button-secondary" id="clearButton" type="button">
+            Limpar tudo
+          </button>
+        </div>
+      </section>
+
+      <section class="results" id="results" aria-labelledby="resultsTitle" hidden>
+        <div class="results-heading">
+          <p class="eyebrow">SEU RESULTADO</p>
+          <h2 id="resultsTitle">Quanto falta alcançar</h2>
+        </div>
+
+        <div class="result-grid">
+          <article class="result-card goal">
+            <div class="result-card-top">
+              <span>Meta</span>
+              <strong id="goalPercent">0%</strong>
+            </div>
+            <p class="target">Sua meta: <b id="goalTarget">R$ 0,00</b></p>
+            <p class="remaining">Falta <strong id="goalRemaining">R$ 0,00</strong></p>
+            <p class="per-day" id="goalPerDay">R$ 0,00 por dia restante</p>
+            <div class="progress"><span id="goalProgress"></span></div>
+          </article>
+
+          <article class="result-card super">
+            <div class="result-card-top">
+              <span>Super</span>
+              <strong id="superPercent">0%</strong>
+            </div>
+            <p class="target">Sua super: <b id="superTarget">R$ 0,00</b></p>
+            <p class="remaining">Falta <strong id="superRemaining">R$ 0,00</strong></p>
+            <p class="per-day" id="superPerDay">R$ 0,00 por dia restante</p>
+            <div class="progress"><span id="superProgress"></span></div>
+          </article>
+
+          <article class="result-card mega">
+            <div class="result-card-top">
+              <span>Mega</span>
+              <strong id="megaPercent">0%</strong>
+            </div>
+            <p class="target">Sua mega: <b id="megaTarget">R$ 0,00</b></p>
+            <p class="remaining">Falta <strong id="megaRemaining">R$ 0,00</strong></p>
+            <p class="per-day" id="megaPerDay">R$ 0,00 por dia restante</p>
+            <div class="progress"><span id="megaProgress"></span></div>
+          </article>
+        </div>
+
+        <div class="status-message" id="statusMessage"></div>
+
+        <button class="button button-secondary results-clear" id="resultsClearButton" type="button">
+          Apagar e fazer novo cálculo
+        </button>
+      </section>
+
+      <footer>
+        <p>Os dados preenchidos não ficam salvos após limpar.</p>
+        <a href="admin.html" aria-label="Abrir área administrativa">Administrar metas</a>
+      </footer>
+    </main>
+  </body>
+</html>
