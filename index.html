@@ -9,6 +9,7 @@
       content="Calculadora de metas pessoais por loja e período."
     />
     <title>Calculadora de Metas</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -22,9 +23,11 @@
   <body>
     <main class="page-shell">
       <header class="hero">
-        <p class="eyebrow">ACOMPANHAMENTO PESSOAL</p>
-        <h1>Calculadora de Metas</h1>
-        <p>
+        <div class="hero-title">
+          <p class="eyebrow">ACOMPANHAMENTO PESSOAL</p>
+          <h1>Calculadora de Metas</h1>
+        </div>
+        <p class="hero-copy">
           Informe sua escala e suas vendas para descobrir quanto falta para
           Meta, Super e Mega.
         </p>
@@ -36,96 +39,99 @@
         </label>
       </header>
 
-      <section class="card" aria-labelledby="scheduleTitle">
-        <div class="section-heading">
-          <span class="step">1</span>
-          <div>
-            <h2 id="scheduleTitle">Dias na escala</h2>
-            <p>Coloque quantos dias trabalhará em cada loja e período.</p>
-          </div>
-        </div>
-
-        <div class="schedule-grid">
-          <div class="store-group">
-            <h3>Clube Bijoux <span>CB</span></h3>
-            <div class="shift-row">
-              <label for="cb_manha">Manhã</label>
-              <input id="cb_manha" data-shift="cb_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
-            </div>
-            <div class="shift-row">
-              <label for="cb_noite">Noite</label>
-              <input id="cb_noite" data-shift="cb_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+      <div class="form-layout">
+        <section class="card schedule-card" aria-labelledby="scheduleTitle">
+          <div class="section-heading">
+            <span class="step">1</span>
+            <div>
+              <h2 id="scheduleTitle">Dias na escala</h2>
+              <p>Coloque quantos dias trabalhará em cada loja e período.</p>
             </div>
           </div>
 
-          <div class="store-group">
-            <h3>Arte Acessórios <span>AA</span></h3>
-            <div class="shift-row">
-              <label for="aa_manha">Manhã</label>
-              <input id="aa_manha" data-shift="aa_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+          <div class="schedule-grid">
+            <div class="store-group">
+              <h3>Clube Bijoux <span>CB</span></h3>
+              <div class="shift-row">
+                <label for="cb_manha">Manhã</label>
+                <input id="cb_manha" data-shift="cb_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+              </div>
+              <div class="shift-row">
+                <label for="cb_noite">Noite</label>
+                <input id="cb_noite" data-shift="cb_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+              </div>
             </div>
-            <div class="shift-row">
-              <label for="aa_noite">Noite</label>
-              <input id="aa_noite" data-shift="aa_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+
+            <div class="store-group">
+              <h3>Arte Acessórios <span>AA</span></h3>
+              <div class="shift-row">
+                <label for="aa_manha">Manhã</label>
+                <input id="aa_manha" data-shift="aa_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+              </div>
+              <div class="shift-row">
+                <label for="aa_noite">Noite</label>
+                <input id="aa_noite" data-shift="aa_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+              </div>
+            </div>
+
+            <div class="store-group">
+              <h3>Adoro Bijoux <span>AB</span></h3>
+              <div class="shift-row">
+                <label for="ab_manha">Manhã</label>
+                <input id="ab_manha" data-shift="ab_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+              </div>
+              <div class="shift-row">
+                <label for="ab_noite">Noite</label>
+                <input id="ab_noite" data-shift="ab_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+              </div>
             </div>
           </div>
 
-          <div class="store-group">
-            <h3>Adoro Bijoux <span>AB</span></h3>
-            <div class="shift-row">
-              <label for="ab_manha">Manhã</label>
-              <input id="ab_manha" data-shift="ab_manha" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
-            </div>
-            <div class="shift-row">
-              <label for="ab_noite">Noite</label>
-              <input id="ab_noite" data-shift="ab_noite" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+          <div class="total-days">
+            <span>Total de dias na escala</span>
+            <strong id="totalScheduledDays">0</strong>
+          </div>
+        </section>
+
+        <section class="card sales-card" aria-labelledby="salesTitle">
+          <div class="section-heading">
+            <span class="step">2</span>
+            <div>
+              <h2 id="salesTitle">Andamento do mês</h2>
+              <p>Some tudo o que você já vendeu nas três lojas.</p>
             </div>
           </div>
-        </div>
 
-        <div class="total-days">
-          <span>Total de dias na escala</span>
-          <strong id="totalScheduledDays">0</strong>
-        </div>
-      </section>
+          <div class="summary-inputs">
+            <label>
+              <span>Total vendido</span>
+              <div class="money-input">
+                <span>R$</span>
+                <input id="soldTotal" type="text" inputmode="decimal" placeholder="0,00" autocomplete="off" />
+              </div>
+            </label>
 
-      <section class="card" aria-labelledby="salesTitle">
-        <div class="section-heading">
-          <span class="step">2</span>
-          <div>
-            <h2 id="salesTitle">Andamento do mês</h2>
-            <p>Some tudo o que você já vendeu nas três lojas.</p>
+            <label>
+              <span>Dias que ainda faltam trabalhar</span>
+              <input id="remainingDays" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
+            </label>
           </div>
-        </div>
 
-        <div class="summary-inputs">
-          <label>
-            <span>Total vendido</span>
-            <div class="money-input">
-              <span>R$</span>
-              <input id="soldTotal" type="text" inputmode="decimal" placeholder="0,00" autocomplete="off" />
-            </div>
-          </label>
+          <p class="form-message" id="formMessage" role="alert" aria-live="polite"></p>
 
-          <label>
-            <span>Dias que ainda faltam trabalhar</span>
-            <input id="remainingDays" type="number" min="0" max="31" inputmode="numeric" placeholder="0" />
-          </label>
-        </div>
-
-        <p class="form-message" id="formMessage" role="alert" aria-live="polite"></p>
-
-        <div class="actions">
-          <button class="button button-primary" id="calculateButton" type="button">
-            Calcular minhas metas
-          </button>
-          <button class="button button-secondary" id="clearButton" type="button">
-            Limpar tudo
-          </button>
-        </div>
-      </section>
+          <div class="actions">
+            <button class="button button-primary" id="calculateButton" type="button">
+              Calcular minhas metas
+            </button>
+            <button class="button button-secondary" id="clearButton" type="button">
+              Limpar tudo
+            </button>
+          </div>
+        </section>
+      </div>
 
       <section class="results" id="results" aria-labelledby="resultsTitle" hidden>
+        <button class="result-close" id="resultsCloseButton" type="button" aria-label="Fechar resultado">×</button>
         <div class="results-heading">
           <p class="eyebrow">SEU RESULTADO</p>
           <h2 id="resultsTitle">Quanto falta alcançar</h2>
