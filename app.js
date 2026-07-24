@@ -118,6 +118,16 @@ function wholeNumberFromInput(value) {
   return Math.max(0, Math.floor(numberFromInput(value)));
 }
 
+function formatMoneyInput(value) {
+  const digits = String(value ?? "").replace(/\D/g, "");
+  if (!digits) return "";
+
+  return (Number(digits) / 100).toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
 function getScheduledDays() {
   return Object.fromEntries(
     SHIFT_KEYS.map((key) => [
@@ -330,6 +340,10 @@ SHIFT_KEYS.forEach((key) => {
   document
     .querySelector(`[data-duo="${key}"]`)
     .addEventListener("input", updateTotalDays);
+});
+
+document.querySelector("#soldTotal").addEventListener("input", (event) => {
+  event.target.value = formatMoneyInput(event.target.value);
 });
 
 document.querySelector("#calculateButton").addEventListener("click", calculate);
