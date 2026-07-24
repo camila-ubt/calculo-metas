@@ -139,7 +139,7 @@ function getDuoDays() {
 function updateTotalDays() {
   const scheduledDays = getScheduledDays();
   const duoDays = getDuoDays();
-  const total = Object.values(scheduledDays).reduce(
+  const totalSolo = Object.values(scheduledDays).reduce(
     (sum, days) => sum + days,
     0,
   );
@@ -147,6 +147,7 @@ function updateTotalDays() {
     (sum, days) => sum + days,
     0,
   );
+  const total = totalSolo + totalDuo;
   document.querySelector("#totalScheduledDays").textContent = total;
   document.querySelector("#totalDuoDays").textContent = totalDuo;
   return total;
@@ -170,7 +171,7 @@ function calculateTargets(days, duoDays) {
   const monthDays = daysInGoalMonth();
   const goal = SHIFT_KEYS.reduce(
     (total, key) => {
-      const equivalentFullDays = days[key] - duoDays[key] / 2;
+      const equivalentFullDays = days[key] + duoDays[key] / 2;
       return (
         total +
         (Number(currentGoals[key]) / monthDays) * equivalentFullDays
@@ -203,11 +204,6 @@ function validateForm(days, duoDays, totalDays, soldTotal, remainingDays) {
 
   if (remainingDays > totalDays) {
     return "Os dias restantes não podem ser maiores que o total da escala.";
-  }
-
-  const invalidDuoShift = SHIFT_KEYS.find((key) => duoDays[key] > days[key]);
-  if (invalidDuoShift) {
-    return "Os dias em dupla não podem ser maiores que os dias trabalhados no mesmo período.";
   }
 
   return "";
