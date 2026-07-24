@@ -12,7 +12,8 @@ planilha `Cálculo Meta.xlsx`.
 - Mega: 130% da meta pessoal.
 - Falta por dia: valor que ainda falta dividido pelos dias restantes de
   trabalho.
-- Nos dias trabalhados em dupla, cada vendedora recebe metade da meta diária
+- Os dias trabalhados sozinha e em dupla são preenchidos separadamente
+- Nos dias em dupla, cada vendedora recebe metade da meta diária
   daquele período.
 - O total da escala respeita automaticamente a quantidade de dias do mês
   selecionado.
