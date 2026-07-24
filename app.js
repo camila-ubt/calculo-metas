@@ -262,7 +262,7 @@ function calculate() {
 
   const results = document.querySelector("#results");
   results.hidden = false;
-  results.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.body.classList.add("modal-open");
 }
 
 function clearForm() {
@@ -271,8 +271,13 @@ function clearForm() {
   });
   document.querySelector("#formMessage").textContent = "";
   document.querySelector("#results").hidden = true;
+  document.body.classList.remove("modal-open");
   updateTotalDays();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function closeResults() {
+  document.querySelector("#results").hidden = true;
+  document.body.classList.remove("modal-open");
 }
 
 SHIFT_KEYS.forEach((key) => {
@@ -287,7 +292,15 @@ document
   .querySelector("#resultsClearButton")
   .addEventListener("click", clearForm);
 document
+  .querySelector("#resultsCloseButton")
+  .addEventListener("click", closeResults);
+document
   .querySelector("#monthSelect")
   .addEventListener("change", (event) => selectGoalsForMonth(event.target.value));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !document.querySelector("#results").hidden) {
+    closeResults();
+  }
+});
 
 loadGoals();
