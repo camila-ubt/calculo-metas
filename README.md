@@ -12,6 +12,10 @@ planilha `Cálculo Meta.xlsx`.
 - Mega: 130% da meta pessoal.
 - Falta por dia: valor que ainda falta dividido pelos dias restantes de
   trabalho.
+- Nos dias trabalhados em dupla, cada vendedora recebe metade da meta diária
+  daquele período.
+- O total da escala respeita automaticamente a quantidade de dias do mês
+  selecionado.
 - A administradora pode cadastrar meses novos e corrigir meses já cadastrados.
 - As vendedoras escolhem o mês antes de calcular.
 
@@ -47,8 +51,3 @@ feita pelas políticas RLS do banco; a senha nunca fica no código.
 O endereço será:
 
 `https://camila-ubt.github.io/calculo-metas/`
-
-
-## Publicação
-
-O site é publicado automaticamente pelo GitHub Pages a partir da branch `main`.
