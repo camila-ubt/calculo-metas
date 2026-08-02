@@ -18,6 +18,9 @@ const SHIFT_KEYS = [
   "ab_noite",
 ];
 
+const SUPER_MULTIPLIER = 1.1;
+const MEGA_MULTIPLIER = 1.2;
+
 const moneyFormatter = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
@@ -192,8 +195,8 @@ function calculateTargets(days, duoDays) {
 
   return {
     goal,
-    super: goal * 1.2,
-    mega: goal * 1.3,
+    super: goal * SUPER_MULTIPLIER,
+    mega: goal * MEGA_MULTIPLIER,
   };
 }
 
