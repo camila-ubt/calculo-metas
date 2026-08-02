@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#7b2948" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Administrar metas</title>
+    <meta http-equiv="refresh" content="4;url=https://metas-lider.vercel.app/" />
+    <title>Metas no Líder Metas</title>
     <link rel="icon" href="favicon.svg?v=2" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,102 +14,30 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=3" />
-    <script src="config.js"></script>
-    <script src="admin.js?v=2" defer></script>
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
   <body>
     <main class="admin-shell">
       <a class="back-link" href="index.html">← Voltar para a calculadora</a>
 
       <header class="admin-hero">
-        <p class="eyebrow">ACESSO RESTRITO</p>
-        <h1>Administrar metas</h1>
-        <p>Somente a administradora pode alterar os valores usados nos cálculos.</p>
+        <p class="eyebrow">FONTE ÚNICA DE METAS</p>
+        <h1>As metas agora ficam no Líder Metas</h1>
+        <p>
+          Cadastre ou altere as metas somente na aba <strong>Metas</strong> do
+          Líder Metas. A Calculadora consulta esses valores automaticamente.
+        </p>
       </header>
 
-      <section class="admin-card" id="setupCard" hidden>
-        <h2>Falta conectar o Supabase</h2>
+      <section class="admin-card">
+        <h2>Abrindo o Líder Metas…</h2>
         <p>
-          A calculadora já funciona com as metas de demonstração. Para liberar
-          o login e atualizar as metas para todas as vendedoras, configure o
-          Supabase seguindo o arquivo README do projeto.
+          Você será redirecionada em alguns segundos. Depois de entrar, abra a
+          aba <strong>Metas</strong> e selecione o mês desejado.
         </p>
-      </section>
-
-      <section class="admin-card" id="loginCard">
-        <h2>Entrar</h2>
-        <p>Use o e-mail e a senha administrativa cadastrados no Supabase.</p>
-
-        <form class="admin-form" id="loginForm">
-          <label class="admin-field">
-            <span>E-mail</span>
-            <input id="email" type="email" autocomplete="username" required />
-          </label>
-          <label class="admin-field">
-            <span>Senha</span>
-            <input id="password" type="password" autocomplete="current-password" required />
-          </label>
-          <button class="button button-primary" type="submit">Entrar</button>
-        </form>
-        <p class="admin-message" id="loginMessage" role="alert"></p>
-      </section>
-
-      <section class="admin-card" id="goalsCard" hidden>
-        <div class="admin-toolbar">
-          <p id="sessionEmail"></p>
-          <button class="button button-secondary small-button" id="logoutButton" type="button">
-            Sair
-          </button>
-        </div>
-
-        <h2>Metas do mês</h2>
-        <p>Informe a meta mensal de cada loja e período. Super e Mega serão calculadas automaticamente em 110% e 120%.</p>
-
-        <form class="admin-form" id="goalsForm">
-          <label class="admin-field">
-            <span>Mês de referência</span>
-            <input id="mes" type="month" required />
-          </label>
-          <p class="admin-message" id="monthMessage"></p>
-
-          <div class="admin-grid">
-            <h3 class="store-title">Clube Bijoux — CB</h3>
-            <label class="admin-field">
-              <span>Meta mensal — manhã</span>
-              <input id="admin_cb_manha" data-goal="cb_manha" type="number" min="0" step="0.01" inputmode="decimal" required />
-            </label>
-            <label class="admin-field">
-              <span>Meta mensal — noite</span>
-              <input id="admin_cb_noite" data-goal="cb_noite" type="number" min="0" step="0.01" inputmode="decimal" required />
-            </label>
-
-            <h3 class="store-title">Arte Acessórios — AA</h3>
-            <label class="admin-field">
-              <span>Meta mensal — manhã</span>
-              <input id="admin_aa_manha" data-goal="aa_manha" type="number" min="0" step="0.01" inputmode="decimal" required />
-            </label>
-            <label class="admin-field">
-              <span>Meta mensal — noite</span>
-              <input id="admin_aa_noite" data-goal="aa_noite" type="number" min="0" step="0.01" inputmode="decimal" required />
-            </label>
-
-            <h3 class="store-title">Adoro Bijoux — AB</h3>
-            <label class="admin-field">
-              <span>Meta mensal — manhã</span>
-              <input id="admin_ab_manha" data-goal="ab_manha" type="number" min="0" step="0.01" inputmode="decimal" required />
-            </label>
-            <label class="admin-field">
-              <span>Meta mensal — noite</span>
-              <input id="admin_ab_noite" data-goal="ab_noite" type="number" min="0" step="0.01" inputmode="decimal" required />
-            </label>
-          </div>
-
-          <button class="button button-primary" id="saveButton" type="submit">
-            Salvar novas metas
-          </button>
-        </form>
-        <p class="admin-message" id="goalsMessage" role="alert"></p>
+        <a class="button button-primary" href="https://metas-lider.vercel.app/">
+          Abrir Líder Metas agora
+        </a>
       </section>
     </main>
   </body>
