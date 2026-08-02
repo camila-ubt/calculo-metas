@@ -19,8 +19,9 @@ simples, considerando a escala de trabalho e as vendas realizadas no mês.
 - A meta mensal de cada loja e período é dividida pela quantidade de dias do mês
 - Cada dia trabalhado sozinha recebe a meta diária completa
 - Cada dia trabalhado em dupla recebe metade da meta diária
-- Super corresponde a 120% da meta pessoal
-- Mega corresponde a 130% da meta pessoal
+- Meta corresponde a 100% da meta pessoal
+- Super corresponde a 110% da meta pessoal
+- Mega corresponde a 120% da meta pessoal
 
 ## Lojas
 
