@@ -1,18 +1,32 @@
 # Calculadora de Metas
 
-Página criada para as vendedoras acompanharem suas metas pessoais de forma
-simples, considerando a escala de trabalho e as vendas realizadas no mês.
+Página criada para as vendedoras acompanharem suas metas pessoais de forma simples, considerando a escala de trabalho e as vendas realizadas no mês.
+
+## Integração com o Líder Metas
+
+O **Líder Metas é a única fonte de cadastro das metas**.
+
+A Calculadora consulta automaticamente, no Supabase do Líder Metas, os valores cadastrados por:
+
+- mês;
+- loja;
+- período da manhã;
+- período da noite.
+
+Não existe mais uma área independente de cadastro dentro da Calculadora. Para alterar qualquer valor, é necessário entrar no Líder Metas e usar a aba **Metas**.
+
+A leitura pública da Calculadora recebe somente os seis valores mensais necessários para o cálculo. Vendas, usuários, perfis e demais informações do sistema não são disponibilizados.
 
 ## Funcionalidades
 
 - Seleção do mês das metas
+- Metas carregadas automaticamente do Líder Metas
 - Escala dividida por loja, período e dias trabalhados sozinha ou em dupla
 - Cálculo automático da Meta, Super e Mega
 - Valor que ainda falta alcançar
 - Média necessária por dia restante
 - Acompanhamento visual do desempenho
 - Limite de dias conforme o mês selecionado
-- Área protegida para atualização das metas mensais
 
 ## Regras do cálculo
 
@@ -31,4 +45,6 @@ simples, considerando a escala de trabalho e as vendas realizadas no mês.
 
 ## Acesso
 
-[Abrir a Calculadora de Metas](https://camila-ubt.github.io/calculo-metas/)
+[Abra a Calculadora de Metas](https://camila-ubt.github.io/calculo-metas/)
+
+[Abra o Líder Metas](https://metas-lider.vercel.app/)
