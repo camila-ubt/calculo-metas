@@ -1,14 +1,3 @@
-const DEFAULT_GOALS = {
-  id: 1,
-  mes: "2026-07-01",
-  cb_manha: 12000,
-  cb_noite: 18000,
-  aa_manha: 18000,
-  aa_noite: 27000,
-  ab_manha: 16800,
-  ab_noite: 25200,
-};
-
 const SHIFT_KEYS = [
   "cb_manha",
   "cb_noite",
@@ -32,8 +21,8 @@ const monthFormatter = new Intl.DateTimeFormat("pt-BR", {
   timeZone: "UTC",
 });
 
-let currentGoals = DEFAULT_GOALS;
-let availableGoals = [DEFAULT_GOALS];
+let currentGoals = null;
+let availableGoals = [];
 
 function isSupabaseConfigured() {
   const config = window.APP_CONFIG || {};
@@ -41,36 +30,43 @@ function isSupabaseConfigured() {
 }
 
 async function loadGoals() {
+  const select = document.querySelector("#monthSelect");
+
   if (!isSupabaseConfigured()) {
-    renderMonthOptions(availableGoals, true);
+    select.innerHTML = '<option value="">Metas indisponíveis</option>';
+    document.querySelector("#formMessage").textContent =
+      "Não foi possível acessar as metas do Líder Metas.";
     return;
   }
 
   const { supabaseUrl, supabaseAnonKey } = window.APP_CONFIG;
 
   try {
-    const response = await fetch(
-      `${supabaseUrl}/rest/v1/metas_mensais?select=*&order=mes.desc`,
-      {
-        headers: {
-          apikey: supabaseAnonKey,
-          Authorization: `Bearer ${supabaseAnonKey}`,
-        },
+    const response = await fetch(`${supabaseUrl}/rest/v1/rpc/metas_publicas`, {
+      headers: {
+        apikey: supabaseAnonKey,
+        Authorization: `Bearer ${supabaseAnonKey}`,
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error("Não foi possível carregar as metas.");
     }
 
     const goals = await response.json();
-    if (goals.length) {
-      availableGoals = goals;
-      currentGoals = chooseInitialGoals(goals);
+    if (!Array.isArray(goals) || !goals.length) {
+      throw new Error("Nenhuma meta disponível.");
     }
-    renderMonthOptions(availableGoals, false);
+
+    availableGoals = goals;
+    currentGoals = chooseInitialGoals(goals);
+    renderMonthOptions(availableGoals);
   } catch (error) {
-    renderMonthOptions(availableGoals, true);
+    availableGoals = [];
+    currentGoals = null;
+    select.innerHTML = '<option value="">Metas indisponíveis</option>';
+    document.querySelector("#formMessage").textContent =
+      "Não foi possível carregar as metas do Líder Metas agora.";
   }
 }
 
@@ -86,14 +82,14 @@ function chooseInitialGoals(goals) {
   return goals.find((goalsRow) => goalsRow.mes.startsWith(currentMonth)) || goals[0];
 }
 
-function renderMonthOptions(goals, usingDefault) {
+function renderMonthOptions(goals) {
   const select = document.querySelector("#monthSelect");
   select.innerHTML = "";
 
   goals.forEach((goalsRow) => {
     const option = document.createElement("option");
     option.value = goalsRow.mes;
-    option.textContent = `${formatMonth(goalsRow.mes)}${usingDefault ? " • demonstração" : ""}`;
+    option.textContent = formatMonth(goalsRow.mes);
     option.selected = goalsRow.mes === currentGoals.mes;
     select.append(option);
   });
@@ -152,14 +148,8 @@ function getDuoDays() {
 function updateTotalDays() {
   const scheduledDays = getScheduledDays();
   const duoDays = getDuoDays();
-  const totalSolo = Object.values(scheduledDays).reduce(
-    (sum, days) => sum + days,
-    0,
-  );
-  const totalDuo = Object.values(duoDays).reduce(
-    (sum, days) => sum + days,
-    0,
-  );
+  const totalSolo = Object.values(scheduledDays).reduce((sum, days) => sum + days, 0);
+  const totalDuo = Object.values(duoDays).reduce((sum, days) => sum + days, 0);
   const total = totalSolo + totalDuo;
   document.querySelector("#totalScheduledDays").textContent = total;
   document.querySelector("#totalDuoDays").textContent = totalDuo;
@@ -167,6 +157,7 @@ function updateTotalDays() {
 }
 
 function daysInGoalMonth() {
+  if (!currentGoals?.mes) return 31;
   const [year, month] = currentGoals.mes.slice(0, 7).split("-").map(Number);
   return new Date(year, month, 0).getDate();
 }
@@ -182,16 +173,10 @@ function syncDayInputLimits() {
 
 function calculateTargets(days, duoDays) {
   const monthDays = daysInGoalMonth();
-  const goal = SHIFT_KEYS.reduce(
-    (total, key) => {
-      const equivalentFullDays = days[key] + duoDays[key] / 2;
-      return (
-        total +
-        (Number(currentGoals[key]) / monthDays) * equivalentFullDays
-      );
-    },
-    0,
-  );
+  const goal = SHIFT_KEYS.reduce((total, key) => {
+    const equivalentFullDays = days[key] + duoDays[key] / 2;
+    return total + (Number(currentGoals[key]) / monthDays) * equivalentFullDays;
+  }, 0);
 
   return {
     goal,
@@ -201,6 +186,10 @@ function calculateTargets(days, duoDays) {
 }
 
 function validateForm(days, duoDays, totalDays, soldTotal, remainingDays) {
+  if (!currentGoals) {
+    return "As metas ainda não foram carregadas do Líder Metas.";
+  }
+
   const monthDays = daysInGoalMonth();
 
   if (totalDays <= 0) {
@@ -238,20 +227,17 @@ function updateResultCard(kind, target, sold, remainingDays) {
   const percent = percentage(sold, target);
   const achieved = remaining === 0;
 
-  document.querySelector(`#${kind}Target`).textContent =
-    moneyFormatter.format(target);
+  document.querySelector(`#${kind}Target`).textContent = moneyFormatter.format(target);
   document.querySelector(`#${kind}Remaining`).textContent = achieved
     ? "Alcançada!"
     : moneyFormatter.format(remaining);
-  document.querySelector(`#${kind}Percent`).textContent =
-    `${Math.min(percent, 999).toFixed(0)}%`;
+  document.querySelector(`#${kind}Percent`).textContent = `${Math.min(percent, 999).toFixed(0)}%`;
   document.querySelector(`#${kind}PerDay`).textContent = achieved
     ? "Objetivo alcançado"
     : remainingDays > 0
       ? `${moneyFormatter.format(requiredPerDay(remaining, remainingDays))} por dia restante`
       : `${moneyFormatter.format(remaining)} ainda pendente`;
-  document.querySelector(`#${kind}Progress`).style.width =
-    `${Math.min(100, percent)}%`;
+  document.querySelector(`#${kind}Progress`).style.width = `${Math.min(100, percent)}%`;
 
   return remaining;
 }
@@ -289,16 +275,8 @@ function calculate() {
   const duoDays = getDuoDays();
   const totalDays = updateTotalDays();
   const soldTotal = numberFromInput(document.querySelector("#soldTotal").value);
-  const remainingDays = wholeNumberFromInput(
-    document.querySelector("#remainingDays").value,
-  );
-  const message = validateForm(
-    days,
-    duoDays,
-    totalDays,
-    soldTotal,
-    remainingDays,
-  );
+  const remainingDays = wholeNumberFromInput(document.querySelector("#remainingDays").value);
+  const message = validateForm(days, duoDays, totalDays, soldTotal, remainingDays);
   const messageElement = document.querySelector("#formMessage");
 
   messageElement.textContent = message;
@@ -337,12 +315,8 @@ function closeResults() {
 }
 
 SHIFT_KEYS.forEach((key) => {
-  document
-    .querySelector(`[data-shift="${key}"]`)
-    .addEventListener("input", updateTotalDays);
-  document
-    .querySelector(`[data-duo="${key}"]`)
-    .addEventListener("input", updateTotalDays);
+  document.querySelector(`[data-shift="${key}"]`).addEventListener("input", updateTotalDays);
+  document.querySelector(`[data-duo="${key}"]`).addEventListener("input", updateTotalDays);
 });
 
 document.querySelector("#soldTotal").addEventListener("input", (event) => {
@@ -351,12 +325,8 @@ document.querySelector("#soldTotal").addEventListener("input", (event) => {
 
 document.querySelector("#calculateButton").addEventListener("click", calculate);
 document.querySelector("#clearButton").addEventListener("click", clearForm);
-document
-  .querySelector("#resultsClearButton")
-  .addEventListener("click", clearForm);
-document
-  .querySelector("#resultsCloseButton")
-  .addEventListener("click", closeResults);
+document.querySelector("#resultsClearButton").addEventListener("click", clearForm);
+document.querySelector("#resultsCloseButton").addEventListener("click", closeResults);
 document
   .querySelector("#monthSelect")
   .addEventListener("change", (event) => selectGoalsForMonth(event.target.value));
