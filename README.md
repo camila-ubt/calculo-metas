@@ -2,6 +2,22 @@
 
 Página criada para as vendedoras acompanharem suas metas pessoais de forma simples, considerando a escala de trabalho e as vendas realizadas no mês.
 
+## Versão atual
+
+**v1.0.0 — Primeira versão oficial**
+
+Esta versão marca a primeira versão estável da Calculadora de Metas, com as principais funcionalidades necessárias para o acompanhamento das metas pessoais das vendedoras.
+
+Principais recursos desta versão:
+
+- cálculo automático de Meta, Super e Mega;
+- divisão da escala por loja e período;
+- cálculo para dias trabalhados sozinha ou em dupla;
+- valor restante para atingir cada objetivo;
+- média necessária por dia restante;
+- metas carregadas automaticamente do Líder Metas;
+- acompanhamento visual do desempenho.
+
 ## Integração com o Líder Metas
 
 O **Líder Metas é a única fonte de cadastro das metas**.
