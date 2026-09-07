@@ -17,10 +17,39 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css?v=5" />
+    <link rel="stylesheet" href="pa-notice.css?v=1" />
     <script src="config.js"></script>
     <script src="app.js?v=6" defer></script>
+    <script src="pa-notice.js?v=1" defer></script>
   </head>
   <body>
+    <aside
+      class="pa-notice"
+      id="paNotice"
+      role="dialog"
+      aria-labelledby="paNoticeTitle"
+      aria-describedby="paNoticeDescription"
+      hidden
+    >
+      <button class="pa-notice-close" id="paNoticeClose" type="button" aria-label="Fechar aviso">×</button>
+      <span class="pa-notice-badge">Novidade</span>
+      <h2 id="paNoticeTitle">Agora tem Cálculo de PA</h2>
+      <p id="paNoticeDescription">
+        Você também pode calcular seu PA por aqui. O atalho <strong>Calcular PA</strong>
+        fica no cantinho superior direito da página.
+      </p>
+      <div class="pa-notice-actions">
+        <a
+          class="pa-notice-link"
+          id="paNoticeLink"
+          href="https://calculo-pa.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Abrir Cálculo de PA</a>
+        <button class="pa-notice-dismiss" id="paNoticeDismiss" type="button">Entendi</button>
+      </div>
+    </aside>
+
     <main class="page-shell">
       <header class="hero">
         <div class="hero-title">
