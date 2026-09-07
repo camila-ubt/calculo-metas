@@ -20,4 +20,4 @@ A documentação completa, incluindo guia de uso, regras de cálculo, integraç�
 
 ## Versão atual
 
-**v1.0.0 — Primeira versão oficial**
+**v1.1.0 — Acesso ao Cálculo PA e política de segurança.**
