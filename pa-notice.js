@@ -35,5 +35,5 @@ document.addEventListener("keydown", (event) => {
 });
 
 const specialCaseScript = document.createElement("script");
-specialCaseScript.src = "special-case.js?v=1";
+specialCaseScript.src = "special-case.js?v=2";
 document.body.append(specialCaseScript);
