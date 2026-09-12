@@ -33,3 +33,7 @@ document.addEventListener("keydown", (event) => {
     dismissPaNotice();
   }
 });
+
+const specialCaseScript = document.createElement("script");
+specialCaseScript.src = "special-case.js?v=1";
+document.body.append(specialCaseScript);
