@@ -160,7 +160,10 @@
       <div class="special-case-row" data-special-segment>
         <label class="special-field">
           <span>Loja</span>
-          <select data-special-store>${storeOptions}</select>
+          <select data-special-store required>
+            <option value="" selected>Selecionar a loja</option>
+            ${storeOptions}
+          </select>
         </label>
         <label class="special-field">
           <span>Entrada</span>
@@ -329,6 +332,14 @@
   }
 
   function validateSpecialDays(groups) {
+    for (const [dayIndex, group] of groups.entries()) {
+      for (const [segmentIndex, segment] of group.segments.entries()) {
+        if (!STORES.some((store) => store.code === segment.store)) {
+          return `Selecione a loja do horário ${segmentIndex + 1} do dia com horário diferente ${dayIndex + 1}.`;
+        }
+      }
+    }
+
     if (!sharedShifts) return shiftsLoadError || "Os horários do Líder Metas ainda não foram carregados.";
 
     const monthDays = daysInGoalMonth();
