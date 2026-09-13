@@ -1,5 +1,33 @@
 # Histórico de versões
 
+## v1.2.0 — Cálculo para dias com horário diferente
+
+Publicada em **13 de setembro de 2026**.
+
+### Novidades
+
+- inclusão da opção **Meu horário foi diferente do turno normal**;
+- cálculo proporcional da meta conforme loja, horário trabalhado e períodos configurados no Líder Metas;
+- suporte a mais de uma loja ou horário dentro do mesmo dia;
+- manutenção do fator de 50% para horários trabalhados em dupla;
+- validação de loja obrigatória, limites de horário e sobreposição de trechos.
+
+### Ajustes de interface e estado
+
+- cada bloco **Dia com horário diferente** conta como exatamente 1 dia na escala;
+- o **Total na escala** é atualizado imediatamente ao adicionar ou remover dias especiais;
+- múltiplos horários dentro do mesmo dia continuam contando como apenas 1 dia;
+- o botão **×** remove somente um horário e fica oculto quando existe apenas um;
+- **Remover este dia** permite excluir qualquer bloco, inclusive o último;
+- resumo dos horários especiais sincronizado em tempo real;
+- fórmula principal de Meta, Super e Mega preservada.
+
+### Documentação
+
+- README atualizado;
+- guia de uso, funcionalidades e regras de negócio atualizados na Wiki;
+- versão exibida no projeto atualizada para v1.2.0.
+
 ## v1.1.0 — Acesso ao Cálculo PA e política de segurança
 
 Publicada em **7 de setembro de 2026**.
