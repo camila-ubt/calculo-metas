@@ -4,6 +4,21 @@ Aplicação web para acompanhamento de metas pessoais com base na escala de trab
 
 [Abrir a Calculadora de Metas](https://camila-ubt.github.io/calculo-metas/)
 
+## Recursos principais
+
+- cálculo automático de Meta, Super e Mega;
+- escala por loja, período e trabalho sozinha ou em dupla;
+- cálculo proporcional para **dias com horário diferente**;
+- atualização imediata do **Total na escala** ao adicionar ou remover dias especiais;
+- metas carregadas automaticamente do Líder Metas;
+- valor restante, percentual alcançado e média necessária por dia restante.
+
+### Dias com horário diferente
+
+Quando um dia não segue o turno normal, a opção **Meu horário foi diferente do turno normal** permite informar a loja, entrada, saída e se o trabalho foi realizado sozinha ou em dupla.
+
+Cada bloco **Dia com horário diferente** representa **1 dia na escala**. Se a vendedora passar por mais de uma loja ou horário no mesmo dia, os horários são adicionados dentro do mesmo bloco e o dia continua contando apenas uma vez. O valor da meta desse dia é calculado proporcionalmente ao tempo trabalhado em cada período configurado no Líder Metas.
+
 ## Capturas de tela
 
 ### Tela principal
@@ -20,4 +35,4 @@ A documentação completa, incluindo guia de uso, regras de cálculo, integraç�
 
 ## Versão atual
 
-**v1.1.0 — Acesso ao Cálculo PA e política de segurança.**
+**v1.2.0 — Cálculo para dias com horário diferente.**
