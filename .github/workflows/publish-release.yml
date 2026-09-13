@@ -1,0 +1,34 @@
+name: Publicar Release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "VERSION"
+      - "RELEASE.md"
+      - ".github/workflows/publish-release.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Criar release da versão
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="$(tr -d '[:space:]' < VERSION)"
+          TAG="v${VERSION#v}"
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG já existe."
+            exit 0
+          fi
+
+          gh release create "$TAG" \
+            --title "Calculadora de Metas $TAG" \
+            --notes-file RELEASE.md \
+            --target "$GITHUB_SHA"
