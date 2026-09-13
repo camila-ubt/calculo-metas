@@ -38,7 +38,7 @@ const specialCaseScript = document.createElement("script");
 specialCaseScript.src = "special-case.js?v=2";
 specialCaseScript.addEventListener("load", () => {
   const specialCaseUiScript = document.createElement("script");
-  specialCaseUiScript.src = "special-case-ui.js?v=1";
+  specialCaseUiScript.src = "special-case-ui.js?v=2";
   document.body.append(specialCaseUiScript);
 });
 document.body.append(specialCaseScript);

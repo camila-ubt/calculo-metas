@@ -1,4 +1,9 @@
 (() => {
+  // Reaplicar a apresentação não deve gerar novas mutações no observador.
+  function definirTexto(elemento, texto) {
+    if (elemento && elemento.textContent !== texto) elemento.textContent = texto;
+  }
+
   function quantidadeDeDias() {
     return document.querySelectorAll("[data-special-day]").length;
   }
@@ -23,14 +28,12 @@
     if (!painel) return;
 
     const explicacao = painel.querySelector(":scope > p");
-    if (explicacao) {
-      explicacao.textContent =
-        "Use somente quando você trabalhou em um horário diferente do turno normal. Cada bloco abaixo representa 1 dia trabalhado. Se você mudou de loja ou de horário no mesmo dia, adicione outro horário dentro desse mesmo dia.";
-    }
+    definirTexto(explicacao,
+      "Use somente quando você trabalhou em um horário diferente do turno normal. Cada bloco abaixo representa 1 dia trabalhado. Se você mudou de loja ou de horário no mesmo dia, adicione outro horário dentro desse mesmo dia.");
 
     painel.querySelectorAll("[data-special-day]").forEach((dia, indice) => {
       const titulo = dia.querySelector(".special-day-title");
-      if (titulo) titulo.textContent = `Dia com horário diferente ${indice + 1}`;
+      definirTexto(titulo, `Dia com horário diferente ${indice + 1}`);
 
       const campoQuantidade = dia.querySelector(".special-day-count");
       if (campoQuantidade) {
@@ -40,18 +43,14 @@
       }
 
       const adicionarHorario = dia.querySelector("[data-special-add-segment]");
-      if (adicionarHorario) {
-        adicionarHorario.textContent = "+ Adicionar outro horário neste mesmo dia";
-      }
+      definirTexto(adicionarHorario, "+ Adicionar outro horário neste mesmo dia");
 
       const removerDia = dia.querySelector("[data-special-remove-day]");
-      if (removerDia) removerDia.textContent = "Remover este dia";
+      definirTexto(removerDia, "Remover este dia");
     });
 
     const adicionarDia = painel.querySelector("#specialAddDay");
-    if (adicionarDia) {
-      adicionarDia.textContent = "+ Adicionar outro dia com horário diferente";
-    }
+    definirTexto(adicionarDia, "+ Adicionar outro dia com horário diferente");
 
     atualizarResumo();
   }
