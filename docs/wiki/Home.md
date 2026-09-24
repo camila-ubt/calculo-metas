@@ -29,6 +29,6 @@ A Calculadora de Metas é uma aplicação web para acompanhamento individual de 
 
 ## Versão atual
 
-**v1.2.0 — Cálculo para dias com horário diferente.**
+**v1.3.0 — Segurança e validação de dados públicos.**
 
 Consulte a página [Histórico de versões](Historico-de-versoes) e a área de [Releases](https://github.com/camila-ubt/calculo-metas/releases) para acompanhar as versões publicadas.
