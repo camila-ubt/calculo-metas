@@ -43,7 +43,7 @@ A página principal utiliza Content Security Policy para limitar scripts, conex�
 
 ## Proteção do repositório
 
-O repositório público utiliza proteção da branch principal, revisão por Pull Request, CodeQL e um workflow de segurança que valida a sintaxe do JavaScript, executa testes e procura padrões de chaves secretas nos arquivos publicados. Segredos não devem ser enviados ao histórico, mesmo quando a proteção de push estiver ativa.
+O repositório público utiliza proteção da branch principal, revisão por Pull Request, CodeQL padrão do GitHub e um workflow de segurança que valida a sintaxe do JavaScript, executa testes e procura padrões de chaves secretas nos arquivos publicados. Segredos não devem ser enviados ao histórico, mesmo quando a proteção de push estiver ativa.
 
 ## Dependências externas
 
