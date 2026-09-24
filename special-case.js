@@ -28,7 +28,7 @@
 
   async function loadSharedShifts() {
     const config = window.APP_CONFIG || {};
-    if (!config.supabaseUrl || !config.supabaseAnonKey) {
+    if (!window.MetaSecurity?.validarConfiguracaoPublica(config)) {
       shiftsLoadError = "Não foi possível acessar a configuração de horários do Líder Metas.";
       return;
     }
@@ -43,9 +43,7 @@
       });
 
       if (!response.ok) throw new Error("Falha ao carregar horários");
-      const rows = await response.json();
-      const row = Array.isArray(rows) ? rows[0] : null;
-      if (!row) throw new Error("Configuração não encontrada");
+      const row = window.MetaSecurity.validarHorariosPublicos(await response.json());
 
       const morningStart = minutesFromTime(row.manha_inicio);
       const morningEnd = minutesFromTime(row.manha_fim);
