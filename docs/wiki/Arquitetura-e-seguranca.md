@@ -31,13 +31,19 @@ Nunca devem ser incluídos no código ou na Wiki:
 - tokens pessoais;
 - dados reais de clientes ou funcionários.
 
-## Proteção no banco
+## Proteção dos dados públicos
 
-A função pública deve continuar retornando somente os campos estritamente necessários para o cálculo. Alterações nessa função precisam ser revisadas para evitar a exposição de vendas, perfis ou outras tabelas internas.
+A função `metas_publicas()` retorna somente o mês e as seis metas necessárias ao cálculo. O navegador valida esse contrato antes de aceitar a resposta: campos extras, meses inválidos ou duplicados e valores inconsistentes são recusados.
+
+Os horários compartilhados também são validados antes de serem usados nos cálculos especiais.
+
+## Proteção no navegador
+
+A página principal utiliza Content Security Policy para limitar scripts, conexões, fontes e outros recursos. Os scripts executáveis ficam restritos à própria aplicação, e as conexões de dados são limitadas ao projeto Supabase utilizado pela calculadora.
 
 ## Proteção do repositório
 
-O repositório público utiliza proteção da branch principal, revisão por Pull Request e recursos de análise de segurança disponíveis no GitHub. Segredos não devem ser enviados ao histórico, mesmo quando a proteção de push estiver ativa.
+O repositório público utiliza proteção da branch principal, revisão por Pull Request, CodeQL padrão do GitHub e um workflow de segurança que valida a sintaxe do JavaScript, executa testes e procura padrões de chaves secretas nos arquivos publicados. Segredos não devem ser enviados ao histórico, mesmo quando a proteção de push estiver ativa.
 
 ## Dependências externas
 

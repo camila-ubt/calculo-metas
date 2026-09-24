@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#7b2948" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self' https://nnxzkokfbnshdidaioet.supabase.co; worker-src 'none'; upgrade-insecure-requests" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta
       name="description"
       content="Calculadora de metas pessoais por loja e período."
@@ -18,6 +20,7 @@
     />
     <link rel="stylesheet" href="styles.css?v=5" />
     <link rel="stylesheet" href="pa-notice.css?v=1" />
+    <script src="security-validation.js?v=1"></script>
     <script src="config.js"></script>
     <script src="app.js?v=6" defer></script>
     <script src="pa-notice.js?v=3" defer></script>
@@ -249,7 +252,7 @@
         <div class="footer-links">
           <span>© 2026 Calculadora de Metas</span>
           <span aria-hidden="true">•</span>
-          <a href="https://github.com/camila-ubt/calculo-metas/releases" target="_blank" rel="noopener noreferrer" aria-label="Ver releases da Calculadora de Metas">v1.2.0</a>
+          <a href="https://github.com/camila-ubt/calculo-metas/releases" target="_blank" rel="noopener noreferrer" aria-label="Ver releases da Calculadora de Metas">v1.3.0</a>
         </div>
         <div class="footer-links">
           <span>Desenvolvido por</span>

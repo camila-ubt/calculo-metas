@@ -1,5 +1,16 @@
 # Histórico de versões
 
+## v1.3.0 — Segurança e validação de dados públicos
+
+Publicada em **24 de setembro de 2026**.
+
+- validação do formato das metas e horários recebidos do Supabase;
+- recusa de campos inesperados e valores inconsistentes antes dos cálculos;
+- Content Security Policy na aplicação estática;
+- CodeQL padrão do GitHub mantido e workflow de segurança adicionado ao repositório;
+- testes automatizados para o contrato de dados públicos;
+- fórmulas e regras da calculadora preservadas.
+
 ## v1.2.0 — Cálculo para dias com horário diferente
 
 Publicada em **13 de setembro de 2026**.

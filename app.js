@@ -25,8 +25,7 @@ let currentGoals = null;
 let availableGoals = [];
 
 function isSupabaseConfigured() {
-  const config = window.APP_CONFIG || {};
-  return Boolean(config.supabaseUrl && config.supabaseAnonKey);
+  return Boolean(window.MetaSecurity?.validarConfiguracaoPublica(window.APP_CONFIG || {}));
 }
 
 async function loadGoals() {
@@ -53,10 +52,7 @@ async function loadGoals() {
       throw new Error("Não foi possível carregar as metas.");
     }
 
-    const goals = await response.json();
-    if (!Array.isArray(goals) || !goals.length) {
-      throw new Error("Nenhuma meta disponível.");
-    }
+    const goals = window.MetaSecurity.validarMetasPublicas(await response.json());
 
     availableGoals = goals;
     currentGoals = chooseInitialGoals(goals);
