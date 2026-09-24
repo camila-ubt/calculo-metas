@@ -1,0 +1,48 @@
+name: Segurança e qualidade
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validar:
+    name: JavaScript, testes e segredos
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Validar sintaxe JavaScript
+        run: |
+          node --check app.js
+          node --check config.js
+          node --check pa-notice.js
+          node --check security-validation.js
+          node --check special-case.js
+          node --check special-case-ui.js
+
+      - name: Executar testes
+        run: node --test tests/*.test.mjs
+
+      - name: Verificar segredos no código publicado
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git grep -nE 'sb_secret_|service_role' -- '*.js' '*.html' '*.css'; then
+            echo "Foi encontrado um padrão de segredo em arquivo publicado." >&2
+            exit 1
+          fi
