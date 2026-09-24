@@ -1,27 +1,32 @@
-## v1.2.0 — Cálculo para dias com horário diferente
+## v1.3.0 — Segurança e validação de dados públicos
 
-Publicada em **13 de setembro de 2026**.
+Publicada em **24 de setembro de 2026**.
 
-Esta versão adiciona suporte a jornadas que não seguem exatamente os turnos normais da escala.
+Esta versão reforça a validação dos dados públicos usados pela Calculadora de Metas e adiciona verificações automáticas de segurança, sem alterar as fórmulas de Meta, Super e Mega.
 
-### Novidades
+### Validação dos dados
 
-- opção **Meu horário foi diferente do turno normal**;
-- cálculo proporcional da meta conforme loja, horário trabalhado e períodos configurados no Líder Metas;
-- suporte a dois ou mais horários/lojas dentro do mesmo dia sem duplicar sua contagem;
-- trabalho em dupla continua com fator de 50%;
-- validação de loja, horários e sobreposição de trechos.
+- respostas da função pública de metas passam a aceitar somente os campos esperados;
+- meses duplicados, formatos inválidos e valores negativos ou não numéricos são recusados;
+- horários recebidos do Líder Metas também são validados antes do cálculo;
+- a configuração pública do Supabase é verificada antes das consultas.
 
-### Correções e melhorias
+### Navegador
 
-- cada bloco **Dia com horário diferente** passa a contar como exatamente **1 dia na escala**;
-- o **Total na escala** é atualizado imediatamente ao adicionar ou remover um dia especial;
-- adicionar ou remover horários dentro do mesmo dia não altera a quantidade de dias;
-- o botão **×** remove somente um horário e fica oculto quando existe apenas um;
-- **Remover este dia** funciona inclusive quando é o último bloco especial;
-- resumo e total permanecem sincronizados sem depender de **Calcular minhas metas**;
-- fórmula principal de Meta, Super e Mega permanece inalterada.
+- Content Security Policy adicionada à página principal;
+- carregamento de scripts restrito à própria aplicação;
+- conexões de dados restritas ao projeto Supabase utilizado pela calculadora;
+- política de referência adicionada às páginas públicas.
 
-### Documentação
+### Repositório
 
-README e Wiki atualizados com instruções de uso, funcionalidades, regras de negócio e fórmula do cálculo proporcional.
+- novo workflow de segurança e qualidade;
+- testes automatizados para o contrato dos dados públicos;
+- CodeQL adicionado para análise do JavaScript;
+- verificação automática contra padrões de chaves secretas em arquivos publicados.
+
+### Regras preservadas
+
+- fórmula de Meta, Super e Mega permanece inalterada;
+- cálculo proporcional de dias com horário diferente permanece inalterado;
+- valores informados pela usuária continuam sem ser enviados ou salvos no banco.
