@@ -22,7 +22,7 @@ Esta versão reforça a validação dos dados públicos usados pela Calculadora 
 
 - novo workflow de segurança e qualidade;
 - testes automatizados para o contrato dos dados públicos;
-- CodeQL adicionado para análise do JavaScript;
+- CodeQL padrão do GitHub mantido para análise do JavaScript;
 - verificação automática contra padrões de chaves secretas em arquivos publicados.
 
 ### Regras preservadas
